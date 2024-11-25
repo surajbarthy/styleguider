@@ -52,25 +52,21 @@ async function fetchStyles() {
   }
 
   try {
-    // // Replace with actual API call when backend is implemented
-    // const mockResponse = {
-    //   colors: ['#FF5733', '#33FF57', '#3357FF', '#F0E68C', '#D2691E'],
-    //   fonts: ['Arial', 'Georgia', 'Courier New', 'Verdana'],
-    // };
+    // Replace with your deployed backend URL
+    const response = await fetch(
+      `https://styleguider-backend-3d011947f576.herokuapp.com/extractStyles?url=${encodeURIComponent(url)}`
+    );
 
-    // colors = mockResponse.colors;
-    // fonts = mockResponse.fonts;
+    if (!response.ok) {
+      throw new Error("Failed to fetch styles from the backend.");
+    }
 
-    // // Trigger a redraw
-    // redraw();
+    const data = await response.json();
+    colors = data.colors;
+    fonts = data.fonts;
 
-    const response = await fetch(`http://localhost:3000/extractStyles?url=${encodeURIComponent(url)}`);
-
-const data = await response.json();
-colors = data.colors;
-fonts = data.fonts;
-redraw();
-
+    // Trigger a redraw
+    redraw();
   } catch (error) {
     console.error("Error fetching styles:", error);
     alert("Failed to fetch styles. Try again.");
