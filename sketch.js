@@ -65,6 +65,7 @@ async function fetchStyles() {
     // redraw();
 
     const response = await fetch(`http://localhost:3000/extractStyles?url=${encodeURIComponent(url)}`);
+
 const data = await response.json();
 colors = data.colors;
 fonts = data.fonts;
